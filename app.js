@@ -306,7 +306,9 @@ function receivedMessage(event) {
       case 'account linking':
         sendAccountLinking(senderID);
         break;
-
+      case 'ㅎㅇ':
+        testFun(senderID);
+        break;
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -530,6 +532,18 @@ function sendTextMessage(recipientId, messageText) {
   };
 
   callSendAPI(messageData);
+}
+
+function testFun(recipientId){
+  var messageData = {
+    recipient:{
+      id:recipientId
+    },
+    message: {
+      text: 'ㅇㅎ',
+      metadata: "DEVELOPER_DEFINED_METADATA"
+    }
+  }
 }
 
 /*
