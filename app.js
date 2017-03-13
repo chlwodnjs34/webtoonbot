@@ -18,15 +18,12 @@ const
   https = require('https'),  
   request = require('request');
 
-var cheerio = require("cheerio");
-
 var app = express();
 app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-var userId ="";
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
@@ -832,7 +829,11 @@ function callSendAPI(messageData) {
 
 
 
-/*var url = "http://comic.naver.com/webtoon/weekday.nhn";
+
+var request = require("request");
+var cheerio = require("cheerio");
+
+var url = "http://comic.naver.com/webtoon/weekday.nhn";
 var url2;
 var value = new Array();
 var check = new Array();
@@ -887,28 +888,14 @@ function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
     if(check[i] != true && check[i] == false){
       console.log(value[i][0]);
-      /*console.log(value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2]);
+      /*console.log(value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2]);*/
       check[i] = true;
-      var webtoon = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
-      asd(userId, webtoon);
+      return value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
     }else{
       
     }
   }
-}*/
-
-function asd(recipientId, webtoon){
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: webtoon
-    }
-  };
-  callSendAPI(messageData);
 }
-
 
 
 
