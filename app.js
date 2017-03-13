@@ -18,20 +18,12 @@ const
   https = require('https'),  
   request = require('request');
 
-var request = require("request");
-var cheerio = require("cheerio");
-
 var app = express();
 app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-
-var url = "http://comic.naver.com/webtoon/weekday.nhn";
-var url2;
-var value = new Array();
-var check = new Array();
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
@@ -314,7 +306,9 @@ function receivedMessage(event) {
       case 'account linking':
         sendAccountLinking(senderID);
         break;
-
+      case 'ㅎㅇ':
+        testFun(senderID);
+        break;
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -534,6 +528,19 @@ function sendTextMessage(recipientId, messageText) {
     message: {
       text: messageText,
       metadata: "DEVELOPER_DEFINED_METADATA"
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+function testFun(recipientId){
+  var messageData = {
+    recipient:{
+      id:recipientId
+    },
+    message: {
+      text: 'ㅇㅎ'
     }
   };
 
@@ -834,8 +841,6 @@ function callSendAPI(messageData) {
     }
   });  
 }
-
-
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
