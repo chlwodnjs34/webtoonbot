@@ -17,7 +17,7 @@ const
   express = require('express'),
   https = require('https'),  
   request = require('request');
-  
+
 var request = require("request");
 var cheerio = require("cheerio");
 
@@ -27,6 +27,11 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
+
+var url = "http://comic.naver.com/webtoon/weekday.nhn";
+var url2;
+var value = new Array();
+var check = new Array();
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
