@@ -18,6 +18,8 @@ const
   https = require('https'),  
   request = require('request');
 
+var cheerio = require("cheerio");
+
 var app = express();
 app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'ejs');
@@ -834,10 +836,7 @@ function callSendAPI(messageData) {
 
 
 
-var request = require("request");
-var cheerio = require("cheerio");
-
-var url = "http://comic.naver.com/webtoon/weekday.nhn";
+/*var url = "http://comic.naver.com/webtoon/weekday.nhn";
 var url2;
 var value = new Array();
 var check = new Array();
@@ -900,7 +899,7 @@ function uploadWebtoon(){
       
     }
   }
-}
+}*/
 
 function asd(recipientId, webtoon){
   var messageData = {
