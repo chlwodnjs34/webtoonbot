@@ -17,7 +17,8 @@ const
   express = require('express'),
   https = require('https'),  
   request = require('request');
-
+  
+var request = require("request");
 var cheerio = require("cheerio");
 
 var app = express();
