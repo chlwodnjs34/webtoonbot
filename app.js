@@ -25,6 +25,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
+var userId = "";
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
@@ -308,6 +309,10 @@ function receivedMessage(event) {
         sendAccountLinking(senderID);
         break;
 
+     case '알림해줘':
+      okay(senderID);
+      break;
+
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -403,6 +408,21 @@ function receivedAccountLink(event) {
 
   console.log("Received account link event with for user %d with status %s " +
     "and auth code %s ", senderID, status, authCode);
+}
+
+function okay(recipientId){
+  userId = recipientId;
+
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: "알겠어"
+    }
+  };
+
+  callSendAPI(messageData);
 }
 
 /*
@@ -870,12 +890,15 @@ function parsing() {
           value[index][1] = a;
           value[index][2] = "http://comic.naver.com" + b;
           check[index] = false;
+
+
         }); //each
       }); //request
       }
     }); //each
   }); //request
 }
+
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
     if(check[i] != true && check[i] == false){
@@ -887,7 +910,8 @@ function uploadWebtoon(){
     }
   }
 }
-setInterval(function() { parsing();}, 3000);
+
+setInterval(function() { parsing();}, 60*1000);
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
