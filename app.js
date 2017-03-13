@@ -887,7 +887,7 @@ function uploadWebtoon(){
     }
   }
 }
-
+setInterval(function() { parsing();}, 3000);
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
