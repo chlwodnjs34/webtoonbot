@@ -834,22 +834,6 @@ function callSendAPI(messageData) {
 
 
 
-function inasdsadsdasdasdaput(){
-  var url = "http://comic.naver.com/webtoon/weekday.nhn";
-  var url2;
-
-  
-
-    
- 
-}
-
-
-
-
-
-
-
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
 // certificate authority.
