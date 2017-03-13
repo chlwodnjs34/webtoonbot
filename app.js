@@ -827,8 +827,14 @@ function callSendAPI(messageData) {
     }
   });  
 }
+
+var url = "http://comic.naver.com/webtoon/weekday.nhn";
+var url2;
+var value = new Array();
+var check = new Array();
+
 function abbc() {
-  
+
 }
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
