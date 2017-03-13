@@ -540,8 +540,7 @@ function testFun(recipientId){
       id:recipientId
     },
     message: {
-      text: 'ㅇㅎ',
-      metadata: "DEVELOPER_DEFINED_METADATA"
+      text: 'ㅇㅎ'
     }
   };
 
