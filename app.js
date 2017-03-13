@@ -310,10 +310,6 @@ function receivedMessage(event) {
         sendAccountLinking(senderID);
         break;
 
-      case '알림해줘':
-        userId = senderID;
-        break;
-
       default:
         sendTextMessage(senderID, messageText);
     }
