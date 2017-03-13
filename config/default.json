@@ -1,6 +1,6 @@
 {
-    "appSecret": "7aff89a595bf0f8d916e70e6d640b3fc",
-    "pageAccessToken": "EAAN0FYjfKZAgBAD6ccRdFncZBb6R0fGZAqrhhH8SMZBWIrIpMvefNtvhHiq3sbvtWLlhkv6jGZCn5UqUAU0GxAej0u3tzl5w9fp6ZBkyZC6wE2uqv6N7QEEnyRZBQOgk7AcLO4hPDoNnc2wc8SvgbDSoadOpVguGFPbpGkiCUvyGTAZDZD",
+    "appSecret": "70fb20c00d3958448de2693289c5e134",
+    "pageAccessToken": "EAATXUcuGj9QBANfK95uujTZAi4G3BVCSXEBKbJ3De9OqZCzVEMGfUjGrUoUOlkEdSEu6VaaXtP3s4CnAiYWjq00ZACkUNCKyclekqTsODJ4Bpz1OjyhRUALRDDNQ9GvvS6PgZCopHT6sLoMl3KZCnurtPvufIaIjn5bjgQcmxTwZDZD",
     "validationToken": "hello",
-    "serverURL": "https://jwtester.herokuapp.com/"
+    "serverURL": "https://webtoonbot.herokuapp.com/"
 }
