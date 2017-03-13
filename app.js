@@ -12,7 +12,7 @@
 
 const 
   bodyParser = require('body-parser'),
-  cheerio = require("cheerio"),
+  cheerio = require("cheerio");
   config = require('config'),
   crypto = require('crypto'),
   express = require('express'),
@@ -833,14 +833,13 @@ function callSendAPI(messageData) {
 
 
 
-
-
-var url = "http://comic.naver.com/webtoon/weekday.nhn";
-var url2;
 var value = new Array();
 var check = new Array();
 
-play = setInterval(function(){
+function input(){
+  var url = "http://comic.naver.com/webtoon/weekday.nhn";
+  var url2;
+  
   request(url, function(error, response, body) {  
     if (error) throw error;
 
@@ -882,6 +881,7 @@ play = setInterval(function(){
       }
     }); //each
   }); //request
+}
   function uploadWebtoon(){
     for (var i = 0; i < value.length; i++) {
       if(check[i] != true && check[i] == false){
@@ -893,9 +893,7 @@ play = setInterval(function(){
       }
     }
   }
-  uploadWebtoon();
-  console.log("--------------------------------------------------------------------------");
-},5000);
+
 
 
 
