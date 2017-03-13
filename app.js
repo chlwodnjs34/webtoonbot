@@ -890,7 +890,7 @@ function parsing() {
           value[index][1] = a;
           value[index][2] = "http://comic.naver.com" + b;
           check[index] = false;
-
+          uploadWebtoon();
 
         }); //each
       }); //request
@@ -902,9 +902,20 @@ function parsing() {
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
     if(check[i] != true && check[i] == false){
+      var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
       console.log(value[i][0]);
+      var messageData = {
+        recipient: {
+          id: userId
+        },
+        message: {
+          text: message
+        }
+      };
+
       /*console.log(value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2]);*/
       check[i] = true;
+      callSendAPI(messageData);
     }else{
       
     }
