@@ -1,0 +1,6 @@
+{
+    "appSecret": "7aff89a595bf0f8d916e70e6d640b3fc",
+    "pageAccessToken": "EAAN0FYjfKZAgBAD6ccRdFncZBb6R0fGZAqrhhH8SMZBWIrIpMvefNtvhHiq3sbvtWLlhkv6jGZCn5UqUAU0GxAej0u3tzl5w9fp6ZBkyZC6wE2uqv6N7QEEnyRZBQOgk7AcLO4hPDoNnc2wc8SvgbDSoadOpVguGFPbpGkiCUvyGTAZDZD",
+    "validationToken": "hello",
+    "serverURL": "https://jwtester.herokuapp.com/"
+}
