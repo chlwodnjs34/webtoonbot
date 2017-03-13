@@ -831,64 +831,6 @@ function callSendAPI(messageData) {
 
 
 
-// function reWeb(){
-
-//     request(url, function(error, response, body) {  
-//     if (error) throw error;
-
-//     var $ = cheerio.load(body);
-
-//     var postWeek = $("div.col li");
-
-//     postWeek.each(function(index) {
-//       var postTitle = $(this).find(".title").text();
-//       var postLink = $(this).find("a").attr("href");
-//       value[index] = new Array();
-//       value[index][0] = postTitle;
-      
-//       var url2 = "http://comic.naver.com" + postLink;
-      
-//       if($(this).find('.ico_updt').length>=1  && check[index] != true){
-        
-//         request(url2, function(error, response, body) {  
-//         if (error) throw error;
-
-//         var $ = cheerio.load(body);
-
-//         var postWeek = $("tr td.title").eq(0);
-        
-//         postWeek.each(function(){
-//           var a = $(this).find("a").text();
-
-//           if($("tr td").eq(0).find("a").attr("href")=="#"){//첫 td가 미리보기일 경우
-//             var b = $("tr td").eq(1).find("a").attr("href");
-//           }else{
-//             var b = $("tr td").eq(0).find("a").attr("href");
-//           }
-          
-//           value[index][1] = a;
-//           value[index][2] = "http://comic.naver.com" + b;
-//           check[index] = false;
-//         }); //each
-//       }); //request
-//       }
-//     }); //each
-//   }); //request
-// }
-
-// function uploadWebtoon(){
-//   for (var i = 0; i < value.length; i++) {
-//     if(check[i] != true && check[i] == false){
-//       console.log(value[i][0]);
-//       /*console.log(value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2]);*/
-//       check[i] = true;
-//     }else{
-      
-//     }
-//   }
-// }
-
-
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
