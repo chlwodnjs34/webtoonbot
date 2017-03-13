@@ -12,7 +12,7 @@
 
 const 
   bodyParser = require('body-parser'),
-  cheerio = require("cheerio");
+  cheerio = require("cheerio"),
   config = require('config'),
   crypto = require('crypto'),
   express = require('express'),
@@ -827,12 +827,6 @@ function callSendAPI(messageData) {
     }
   });  
 }
-
-
-
-
-
-
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
