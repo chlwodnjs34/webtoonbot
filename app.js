@@ -839,12 +839,11 @@ var check = new Array();
 function input(){
   var url = "http://comic.naver.com/webtoon/weekday.nhn";
   var url2;
+
   
-  request(url, function(error, response, body) {  
-    if (error) throw error;
 
     
-  }); //request
+ 
 }
   function uploadWebtoon(){
     for (var i = 0; i < value.length; i++) {
