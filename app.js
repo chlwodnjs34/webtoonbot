@@ -836,7 +836,8 @@ function callSendAPI(messageData) {
 }
 
 
-request(url, function(error, response, body) {  
+function reWeb(){
+    request(url, function(error, response, body) {  
     if (error) throw error;
 
     var $ = cheerio.load(body);
@@ -872,13 +873,28 @@ request(url, function(error, response, body) {
           value[index][1] = a;
           value[index][2] = "http://comic.naver.com" + b;
           check[index] = false;
-          
         }); //each
       }); //request
       }
     }); //each
   }); //request
+}
 
+function uploadWebtoon(){
+  for (var i = 0; i < value.length; i++) {
+    if(check[i] != true && check[i] == false){
+      console.log(value[i][0]);
+      /*console.log(value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2]);*/
+      check[i] = true;
+    }else{
+      
+    }
+  }
+}
+
+play = setInterval(function(){
+  reWeb();
+},60*1000)
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
