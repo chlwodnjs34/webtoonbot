@@ -893,7 +893,7 @@ play = setInterval(function(){
           value[index][1] = a;
           value[index][2] = "http://comic.naver.com" + b;
           check[index] = false;
-          
+          uploadWebtoon();
         }); //each
       }); //request
       }
