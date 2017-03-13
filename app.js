@@ -543,7 +543,9 @@ function testFun(recipientId){
       text: 'ㅇㅎ',
       metadata: "DEVELOPER_DEFINED_METADATA"
     }
-  }
+  };
+
+  callSendAPI(messageData);
 }
 
 /*
