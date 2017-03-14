@@ -519,7 +519,7 @@ function parsing() {
 
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
-    if(check[i] != true && check[i] == false && userId.length >= 1){
+    if(check[i] != true && check[i] == false){
       var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
       console.log(value[i][0]);
       var messageData = {
