@@ -542,6 +542,10 @@ function uploadWebtoon(){
 
 
 setInterval(function() { parsing();}, 60*1000);
+var data = 'file system example!!'; 
+fs.writeFile('text1.txt', data, 'utf8', function(error){
+ console.log('write end') 
+});
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
