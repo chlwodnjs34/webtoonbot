@@ -465,12 +465,12 @@ function callSendAPI(messageData) {
     }
   });  
 }
-
-function parsing() {
-  var url = "http://comic.naver.com/webtoon/weekday.nhn";
+ var url = "http://comic.naver.com/webtoon/weekday.nhn";
   var url2;
   var value = new Array();
   var check = new Array();
+function parsing() {
+ 
 
   request(url, function(error, response, body) {  
     if (error) throw error;
