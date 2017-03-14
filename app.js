@@ -466,13 +466,12 @@ function callSendAPI(messageData) {
   });  
 }
 
+var url = "http://comic.naver.com/webtoon/weekday.nhn";
+var url2;
+var value = new Array();
+var check = new Array();
 
 function parsing() {
-  var url = "http://comic.naver.com/webtoon/weekday.nhn";
-  var url2;
-  var value = new Array();
-  var check = new Array();
-
   request(url, function(error, response, body) {  
     if (error) throw error;
 
@@ -494,29 +493,18 @@ function parsing() {
           var postWeek = $("tr td.title").eq(0);
           
           postWeek.each(function(){
-            var num = $(this).find("a").text();
+            var a = $(this).find("a").text();
 
             if($("tr td").eq(0).find("a").attr("href")=="#"){//첫 td가 미리보기일 경우
-              var link = $("tr td").eq(1).find("a").attr("href");
+              var b = $("tr td").eq(1).find("a").attr("href");
             } else {
-              var link = $("tr td").eq(0).find("a").attr("href");
+              var b = $("tr td").eq(0).find("a").attr("href");
             }
             
-            value[index][1] = num;
-            value[index][2] = "http://comic.naver.com" + link;
-            check[index] = true;
-
-            var message = value[index][0] + " " + value[index][1] + " 업로드 되었습니다." + value[index][2];
-            var messageData = {
-              recipient: {
-                id: userId
-              },
-              message: {
-                text: message
-              }
-            };
-
-            callSendAPI(messageData);
+            value[index][1] = a;
+            value[index][2] = "http://comic.naver.com" + b;
+            check[index] = false;
+            uploadWebtoon();
           }); //each
         }); //request
 
@@ -531,10 +519,22 @@ function parsing() {
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
     if(check[i] == false){
-      
+      var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
+      console.log(value[i][0]);
+      var messageData = {
+        recipient: {
+          id: userId
+        },
+        message: {
+          text: message
+        }
+      };
+
+      /*console.log(value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2]);*/
+      check[i] = true;
+      callSendAPI(messageData);
     } else {
-      //이미알림
-      //console.log(value[i][0]);
+      
     }
   }
 }
