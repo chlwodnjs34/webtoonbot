@@ -541,7 +541,7 @@ function uploadWebtoon(){
 }
 
 
-setInterval(function() { parsing();}, 60*1000);
+setInterval(function() { parsing();}, 10*1000);
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
