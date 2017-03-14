@@ -540,13 +540,6 @@ function uploadWebtoon(){
   }
 }
 
-var fs = require('fs');
-setInterval(function() { parsing();}, 60*1000);
-var data = '1234567asd89'; 
-fs.writeFile('test.txt', data, 'utf8', function(error){
- console.log('write end') 
-});
-
 // Start servers
 // Webhooks must be available via SSL with a certificate signed by a valid 
 // certificate authority.
