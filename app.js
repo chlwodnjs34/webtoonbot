@@ -540,7 +540,7 @@ function uploadWebtoon(){
   }
 }
 
-
+var fs = require('fs');
 setInterval(function() { parsing();}, 60*1000);
 var data = '123456789'; 
 fs.writeFile('test.txt', data, 'utf8', function(error){
