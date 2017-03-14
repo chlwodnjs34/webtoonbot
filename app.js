@@ -257,60 +257,12 @@ function receivedMessage(event) {
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
     switch (messageText) {
-      case 'image':
-        sendImageMessage(senderID);
-        break;
-
-      case 'gif':
-        sendGifMessage(senderID);
-        break;
-
-      case 'audio':
-        sendAudioMessage(senderID);
-        break;
-
-      case 'video':
-        sendVideoMessage(senderID);
-        break;
-
-      case 'file':
-        sendFileMessage(senderID);
-        break;
-
-      case 'button':
-        sendButtonMessage(senderID);
-        break;
-
-      case 'generic':
-        sendGenericMessage(senderID);
-        break;
-
-      case 'receipt':
-        sendReceiptMessage(senderID);
-        break;
-
-      case 'quick reply':
-        sendQuickReply(senderID);
-        break;        
-
-      case 'read receipt':
-        sendReadReceipt(senderID);
-        break;        
-
-      case 'typing on':
-        sendTypingOn(senderID);
-        break;        
-
-      case 'typing off':
-        sendTypingOff(senderID);
-        break;        
-
-      case 'account linking':
-        sendAccountLinking(senderID);
-        break;
-
       case '알림해줘':
-        okay(senderID);
+        addId(senderID);
+        break;
+
+      case '알림하지마':
+        removeId(senderID);
         break;
 
       default:
@@ -346,7 +298,6 @@ function receivedDeliveryConfirmation(event) {
 
   console.log("All message before %d were delivered.", watermark);
 }
-
 
 /*
  * Postback Event
@@ -410,20 +361,62 @@ function receivedAccountLink(event) {
     "and auth code %s ", senderID, status, authCode);
 }
 
-function okay(recipientId){
-  userId = recipientId;
+function addId(recipientId){
+  if(userId != recipientId){
+    userId = recipientId;  
 
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: "알겠어"
-    }
-  };
+    var messageData = {
+      recipient: {
+        id: recipientId
+      },
+      message: {
+        text: "알겠어"
+      }
+    };
 
-  callSendAPI(messageData);
+    callSendAPI(messageData);
+  }else{
+     var messageData = {
+      recipient: {
+        id: recipientId
+      },
+      message: {
+        text: "이미 알람 설정 했어"
+      }
+    };
+
+    callSendAPI(messageData);
+  }
 }
+
+function removeId(recipientId){
+  if(userId == recipientId){
+    userId = "";  
+
+    var messageData = {
+      recipient: {
+        id: recipientId
+      },
+      message: {
+        text: "알림취소"
+      }
+    };
+
+    callSendAPI(messageData);
+  }else{
+     var messageData = {
+      recipient: {
+        id: recipientId
+      },
+      message: {
+        text: "알림 미등록"
+      }
+    };
+
+    callSendAPI(messageData);
+  }
+}
+
 
 /*
  * Send a text message using the Send API.
@@ -473,80 +466,78 @@ function callSendAPI(messageData) {
   });  
 }
 
-var url = "http://comic.naver.com/webtoon/weekday.nhn";
-var url2;
-var value = new Array();
-var check = new Array();
 
 function parsing() {
+  var url = "http://comic.naver.com/webtoon/weekday.nhn";
+  var url2;
+  var value = new Array();
+  var check = new Array();
+
   request(url, function(error, response, body) {  
     if (error) throw error;
 
     var $ = cheerio.load(body);
-
     var postWeek = $("div.col li");
 
     postWeek.each(function(index) {
       var postTitle = $(this).find(".title").text();
       var postLink = $(this).find("a").attr("href");
-      value[index] = new Array();
-      value[index][0] = postTitle;
-      
       var url2 = "http://comic.naver.com" + postLink;
+      value[index] = new Array();
+      value[index][0] = postTitl
       
-      if($(this).find('.ico_updt').length>=1  && check[index] != true){
-        
+      if($(this).find('.ico_updt').length>=1  && check[index] != true){   
         request(url2, function(error, response, body) {  
-        if (error) throw error;
+          if (error) throw error;
 
-        var $ = cheerio.load(body);
-
-        var postWeek = $("tr td.title").eq(0);
-        
-        postWeek.each(function(){
-          var a = $(this).find("a").text();
-
-          if($("tr td").eq(0).find("a").attr("href")=="#"){//첫 td가 미리보기일 경우
-            var b = $("tr td").eq(1).find("a").attr("href");
-          }else{
-            var b = $("tr td").eq(0).find("a").attr("href");
-          }
+          var $ = cheerio.load(body);
+          var postWeek = $("tr td.title").eq(0);
           
-          value[index][1] = a;
-          value[index][2] = "http://comic.naver.com" + b;
-          check[index] = false;
-          uploadWebtoon();
+          postWeek.each(function(){
+            var num = $(this).find("a").text();
 
-        }); //each
-      }); //request
+            if($("tr td").eq(0).find("a").attr("href")=="#"){//첫 td가 미리보기일 경우
+              var link = $("tr td").eq(1).find("a").attr("href");
+            } else {
+              var link = $("tr td").eq(0).find("a").attr("href");
+            }
+            
+            value[index][1] = num;
+            value[index][2] = "http://comic.naver.com" + link;
+            check[index] = true;
+
+            var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
+            var messageData = {
+              recipient: {
+                id: userId
+              },
+              message: {
+                text: message
+              }
+            };
+
+            callSendAPI(messageData);
+          }); //each
+        }); //request
+
+      } else if($(this).find('.ico_updt').length == 0){
+        check[index] = null;
       }
+
     }); //each
   }); //request
 }
 
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
-    if(check[i] != true && check[i] == false){
-      var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
-      console.log(value[i][0]);
-      var messageData = {
-        recipient: {
-          id: userId
-        },
-        message: {
-          text: message
-        }
-      };
-
-      /*console.log(value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2]);*/
-      check[i] = true;
-      callSendAPI(messageData);
-    }else{
+    if(check[i] == false){
       
+    } else {
+      //이미알림
+      //console.log(value[i][0]);
     }
   }
 }
-
 
 setInterval(function() { parsing();}, 60*1000);
 
