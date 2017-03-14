@@ -543,7 +543,7 @@ function uploadWebtoon(){
 
 setInterval(function() { parsing();}, 60*1000);
 var data = 'file system example!!'; 
-fs.writeFile('text1.txt', data, 'utf8', function(error){
+fs.writeFile('test.txt', data, 'utf8', function(error){
  console.log('write end') 
 });
 
