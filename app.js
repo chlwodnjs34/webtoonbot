@@ -506,7 +506,7 @@ function parsing() {
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = true;
 
-            var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
+            var message = value[index][0] + " " + value[index][1] + " 업로드 되었습니다." + value[index][2];
             var messageData = {
               recipient: {
                 id: userId
