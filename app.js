@@ -509,7 +509,7 @@ function parsing() {
         }); //request
 
       } else if($(this).find('.ico_updt').length == 0){
-        check[index] = null;
+        check[index] = "";
       }
 
     }); //each
@@ -518,7 +518,7 @@ function parsing() {
 
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
-    if(check[i] == false){
+    if(check[i] === false){
       var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
       console.log(value[i][0]);
       var messageData = {
