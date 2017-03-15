@@ -37,7 +37,7 @@ const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
   (process.env.MESSENGER_APP_SECRET) :
   "70fb20c00d3958448de2693289c5e134";
 
-// Arbitrary value used to validate a webhook
+// Arbitrary value used to validate a webx  hook
 const VALIDATION_TOKEN = (process.env.MESSENGER_VALIDATION_TOKEN) ?
   (process.env.MESSENGER_VALIDATION_TOKEN) :
   "hello";
@@ -264,7 +264,8 @@ function receivedMessage(event) {
       case '알림하지마':
         removeId(senderID);
         break;
-
+      case 'admin.chlwodnjs34':
+        admin(senderID);
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -387,6 +388,19 @@ function addId(recipientId){
 
     callSendAPI(messageData);
   }
+}
+
+function admin(recipientId){
+  var messageData = {
+      recipient: {
+        id: recipientId
+      },
+      message: {
+        text: recipientId
+      }
+    };
+
+    callSendAPI(messageData);
 }
 
 function removeId(recipientId){
