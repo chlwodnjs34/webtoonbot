@@ -469,9 +469,8 @@ function callSendAPI(messageData) {
   var url2;
   var value = new Array();
   var check = new Array();
-  
 function parsing() {
-
+ 
 
   request(url, function(error, response, body) {  
     if (error) throw error;
@@ -544,7 +543,7 @@ function uploadWebtoon(){
 // Start servers
 // Webhooks must be available via SSL with a certificate signed by a valid 
 // certificate authority.
-app.listen(app.get('port'), function() {
+app.listen(8001, function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
