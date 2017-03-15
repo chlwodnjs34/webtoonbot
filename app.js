@@ -533,7 +533,7 @@ function parsing() {
                   text: message
                 }
               };
-              check[i] = true;
+              check[index] = true;
 
               callSendAPI(messageData);
             } else {
