@@ -45,13 +45,13 @@ const VALIDATION_TOKEN = (process.env.MESSENGER_VALIDATION_TOKEN) ?
 // Generate a page access token for your page from the App Dashboard
 const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
   (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
-  "EAATXUcuGj9QBANfK95uujTZAi4G3BVCSXEBKbJ3De9OqZCzVEMGfUjGrUoUOlkEdSEu6VaaXtP3s4CnAiYWjq00ZACkUNCKyclekqTsODJ4Bpz1OjyhRUALRDDNQ9GvvS6PgZCopHT6sLoMl3KZCnurtPvufIaIjn5bjgQcmxTwZDZD";
+  "EAATXUcuGj9QBAC80vZAcnuS6ZCnhJ6IRHKQlMXJKOYjy2XVGEO9ajfQaP1bEdIUkv9V8noT9pI8psqpd9b6ZAjjw053a1ZCv23bbTsp8tSZAaQ8ndzLz0SIw1UdRUcb1XJpiBKDUoqoAloh0ywxZCAfojwrOMgCZBuFKhpUqPa4bwZDZD";
 
 // URL where the app is running (include protocol). Used to point to scripts and 
 // assets located at this address. 
 const SERVER_URL = (process.env.SERVER_URL) ?
   (process.env.SERVER_URL) :
-  "https://webtoonbot.cafe24app.com/";
+  "https://webtoonbot.cafe24app.com";
 
 if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
   console.error("Missing config values");
