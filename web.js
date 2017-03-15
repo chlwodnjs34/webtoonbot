@@ -34,24 +34,24 @@ var userId = "";
 
 // App Secret can be retrieved from the App Dashboard
 const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ? 
-  (process.env.MESSENGER_APP_SECRET) :
-  "70fb20c00d3958448de2693289c5e134";
+  process.env.MESSENGER_APP_SECRET :
+  config.get('appSecret');
 
-// Arbitrary value used to validate a webx  hook
+// Arbitrary value used to validate a webhook
 const VALIDATION_TOKEN = (process.env.MESSENGER_VALIDATION_TOKEN) ?
   (process.env.MESSENGER_VALIDATION_TOKEN) :
-  "hello";
+  config.get('validationToken');
 
 // Generate a page access token for your page from the App Dashboard
 const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
   (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
-  "EAATXUcuGj9QBAC80vZAcnuS6ZCnhJ6IRHKQlMXJKOYjy2XVGEO9ajfQaP1bEdIUkv9V8noT9pI8psqpd9b6ZAjjw053a1ZCv23bbTsp8tSZAaQ8ndzLz0SIw1UdRUcb1XJpiBKDUoqoAloh0ywxZCAfojwrOMgCZBuFKhpUqPa4bwZDZD";
+  config.get('pageAccessToken');
 
 // URL where the app is running (include protocol). Used to point to scripts and 
 // assets located at this address. 
 const SERVER_URL = (process.env.SERVER_URL) ?
   (process.env.SERVER_URL) :
-  "https://webtoonbot.cafe24app.com";
+  config.get('serverURL');
 
 if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
   console.error("Missing config values");
@@ -264,8 +264,11 @@ function receivedMessage(event) {
       case '알림하지마':
         removeId(senderID);
         break;
+
       case 'admin.chlwodnjs34':
         admin(senderID);
+        break;
+
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -362,6 +365,19 @@ function receivedAccountLink(event) {
     "and auth code %s ", senderID, status, authCode);
 }
 
+function admin(recipientId){
+   var messageData = {
+      recipient: {
+        id: recipientId
+      },
+      message: {
+        text: recipientId
+      }
+    };
+
+    callSendAPI(messageData);
+}
+
 function addId(recipientId){
   if(userId != recipientId){
     userId = recipientId;  
@@ -388,19 +404,6 @@ function addId(recipientId){
 
     callSendAPI(messageData);
   }
-}
-
-function admin(recipientId){
-  var messageData = {
-      recipient: {
-        id: recipientId
-      },
-      message: {
-        text: recipientId
-      }
-    };
-
-    callSendAPI(messageData);
 }
 
 function removeId(recipientId){
