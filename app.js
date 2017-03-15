@@ -482,11 +482,11 @@ function callSendAPI(messageData) {
     }
   });  
 }
-
   var url = "http://comic.naver.com/webtoon/weekday.nhn";
   var url2;
   var value = new Array();
   var check = new Array();
+
 function parsing() {
 
 
@@ -533,6 +533,7 @@ function parsing() {
                   text: message
                 }
               };
+              check[index] = true;
 
               callSendAPI(messageData);
             } else {
