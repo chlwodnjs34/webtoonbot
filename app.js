@@ -523,30 +523,7 @@ function parsing() {
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
             
-            if(check[index] == false){
-              var message = value[index][0] + " " + value[index][1] + " 업로드 되었습니다." + value[index][2];
-              var messageData = {
-                recipient: {
-                  id: userId
-                },
-                message: {
-                  text: message
-                }
-              };
-              check[index] = true;
-
-              callSendAPI(messageData);
-            } else {
-              //이미알림
-              //console.log(value[i][0]);
-          }
-
-          }); //each
-        }); //request
-
-      } else if($(this).find('.ico_updt').length == 0){
-        check[index] = false;
-      }
+            
 
     }); //each
   }); //request
