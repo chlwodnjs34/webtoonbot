@@ -35,23 +35,23 @@ var userId = "";
 // App Secret can be retrieved from the App Dashboard
 const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ? 
   (process.env.MESSENGER_APP_SECRET) :
-  config.get('appSecret');
+  "70fb20c00d3958448de2693289c5e134";
 
 // Arbitrary value used to validate a webhook
 const VALIDATION_TOKEN = (process.env.MESSENGER_VALIDATION_TOKEN) ?
   (process.env.MESSENGER_VALIDATION_TOKEN) :
-  config.get('validationToken');
+  "hello";
 
 // Generate a page access token for your page from the App Dashboard
 const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
   (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
-  config.get('pageAccessToken');
+  "EAATXUcuGj9QBANfK95uujTZAi4G3BVCSXEBKbJ3De9OqZCzVEMGfUjGrUoUOlkEdSEu6VaaXtP3s4CnAiYWjq00ZACkUNCKyclekqTsODJ4Bpz1OjyhRUALRDDNQ9GvvS6PgZCopHT6sLoMl3KZCnurtPvufIaIjn5bjgQcmxTwZDZD";
 
 // URL where the app is running (include protocol). Used to point to scripts and 
 // assets located at this address. 
 const SERVER_URL = (process.env.SERVER_URL) ?
   (process.env.SERVER_URL) :
-  config.get('serverURL');
+  "https://webtoonbot.cafe24app.com/";
 
 if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
   console.error("Missing config values");
