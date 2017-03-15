@@ -483,12 +483,12 @@ function callSendAPI(messageData) {
   });  
 }
 
-
-function parsing() {
   var url = "http://comic.naver.com/webtoon/weekday.nhn";
   var url2;
   var value = new Array();
   var check = new Array();
+function parsing() {
+
 
   request(url, function(error, response, body) {  
     if (error) throw error;
@@ -501,7 +501,7 @@ function parsing() {
       var postLink = $(this).find("a").attr("href");
       var url2 = "http://comic.naver.com" + postLink;
       value[index] = new Array();
-      value[index][0] = postTitle;
+      value[index][0] = postTitl
       
       if($(this).find('.ico_updt').length>=1  && check[index] != true){   
         request(url2, function(error, response, body) {  
@@ -523,7 +523,29 @@ function parsing() {
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
             
-            
+            if(check[index] == false){
+              var message = value[index][0] + " " + value[index][1] + " 업로드 되었습니다." + value[index][2];
+              var messageData = {
+                recipient: {
+                  id: userId
+                },
+                message: {
+                  text: message
+                }
+              };
+
+              callSendAPI(messageData);
+            } else {
+              //이미알림
+              //console.log(value[i][0]);
+          }
+
+          }); //each
+        }); //request
+
+      } else if($(this).find('.ico_updt').length == 0){
+        check[index] = false;
+      }
 
     }); //each
   }); //request
