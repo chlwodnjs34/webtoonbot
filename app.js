@@ -501,7 +501,7 @@ function parsing() {
       var postLink = $(this).find("a").attr("href");
       var url2 = "http://comic.naver.com" + postLink;
       value[index] = new Array();
-      value[index][0] = postTitl
+      value[index][0] = postTitle;
       
       if($(this).find('.ico_updt').length>=1  && check[index] != true){   
         request(url2, function(error, response, body) {  
