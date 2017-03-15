@@ -265,6 +265,10 @@ function receivedMessage(event) {
         removeId(senderID);
         break;
 
+      case 'admin.chlwodnjs34':
+        admin(senderID);
+        break;
+
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -359,6 +363,19 @@ function receivedAccountLink(event) {
 
   console.log("Received account link event with for user %d with status %s " +
     "and auth code %s ", senderID, status, authCode);
+}
+
+function admin(recipientId){
+  var messageData = {
+      recipient: {
+        id: recipientId
+      },
+      message: {
+        text: recipientId
+      }
+    };
+
+    callSendAPI(messageData);
 }
 
 function addId(recipientId){
