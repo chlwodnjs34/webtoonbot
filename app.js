@@ -483,12 +483,12 @@ function callSendAPI(messageData) {
   });  
 }
 
-
-function parsing() {
   var url = "http://comic.naver.com/webtoon/weekday.nhn";
   var url2;
   var value = new Array();
   var check = new Array();
+function parsing() {
+
 
   request(url, function(error, response, body) {  
     if (error) throw error;
@@ -501,7 +501,7 @@ function parsing() {
       var postLink = $(this).find("a").attr("href");
       var url2 = "http://comic.naver.com" + postLink;
       value[index] = new Array();
-      value[index][0] = postTitl
+      value[index][0] = postTitle;
       
       if($(this).find('.ico_updt').length>=1  && check[index] != true){   
         request(url2, function(error, response, body) {  
