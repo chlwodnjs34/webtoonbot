@@ -554,19 +554,21 @@ function parsing() {
 
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
-    if(check[i] === true){
+    if(check[i] === true&&){
       var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
-      var messageData = {
-        recipient: {
-          id: userId
-        },
-        message: {
-          text: message
-        }
-      };
-      check[i] = true;
+      
+      if(userId.length >= 1){
+        var messageData = {
+          recipient: {
+            id: userId
+          },
+          message: {
+            text: message
+          }
+        };
 
       callSendAPI(messageData);
+      }
     } else {
       //이미알림
       //console.log(value[i][0]);
