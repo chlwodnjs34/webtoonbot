@@ -501,8 +501,14 @@ function parsing() {
       var url2 = "http://comic.naver.com" + postLink;
       value[index] = new Array();
       value[index][0] = postTitle;
+      if($(this).find('.ico_updt').length>=1){
+        value[index][3] = true;
+      } else {
+        value[index][3] = false;
+      }
       
-      if($(this).find('.ico_updt').length>=1  && check[index] != true){   
+      
+      if(value[index][3] === true && check[index] != true){   
         request(url2, function(error, response, body) {  
           if (error) throw error;
 
@@ -521,28 +527,13 @@ function parsing() {
             value[index][1] = num;
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
-            
-            if(check[index] == false){
-              var message = value[index][0] + " " + value[index][1] + " 업로드 되었습니다." + value[index][2];
-              var messageData = {
-                recipient: {
-                  id: userId
-                },
-                message: {
-                  text: message
-                }
-              };
-              check[index] = true;
 
-              callSendAPI(messageData);
-            } else {
-              //이미알림
-              //console.log(value[i][0]);
-            }
+            uploadWebtoon();
+
           }); //each
         }); //request
 
-      } else if($(this).find('.ico_updt').length == 0){
+      } else if(value[index][3] === false){
         check[index] = false;
       }
 
@@ -552,7 +543,7 @@ function parsing() {
 
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
-    if(check[i] == false){
+     if(value[i][3] === true && check[i] === false){
       var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
       var messageData = {
         recipient: {
