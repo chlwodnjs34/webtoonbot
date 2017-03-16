@@ -539,7 +539,7 @@ function parsing() {
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
 
-            uploadWebtoon();
+            
 
           }); //each
         }); //request
