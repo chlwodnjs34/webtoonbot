@@ -573,7 +573,7 @@ function uploadWebtoon(){
 
 setInterval(function() { parsing();}, 60*1000);
 
-
+require('heroku-self-ping')("http://webtoonbot.herokuapp.com/");
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
