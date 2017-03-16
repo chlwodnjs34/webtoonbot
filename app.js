@@ -537,9 +537,9 @@ function parsing() {
             
             value[index][1] = num;
             value[index][2] = "http://comic.naver.com" + link;
-            check[index] = true;
+            check[index] = false;
 
-            uploadWebtoon();
+            
 
           }); //each
         }); //request
@@ -554,7 +554,7 @@ function parsing() {
 
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
-    if(check[i] === true && userId.length >= 1){
+    if(check[i] === false && userId.length >= 1){
       var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
       var messageData = {
         recipient: {
@@ -564,7 +564,7 @@ function uploadWebtoon(){
           text: message
         }
       };
-      
+
       callSendAPI(messageData);
     } else {
       //이미알림
@@ -573,7 +573,10 @@ function uploadWebtoon(){
   }
 }
 
-setInterval(function() { parsing();}, 60*1000);
+setInterval(function() { 
+  parsing();
+  uploadWebtoon();
+}, 60*1000);
 
 //10분 마다 heroku sleep모드 방지
 setInterval(function() {
