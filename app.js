@@ -567,7 +567,7 @@ setInterval(function() { parsing();}, 60*1000);
 
 //10분 마다 heroku sleep모드 방지
 setInterval(function() {
-    http.get("http://webtoonbot.herokuapp.com");
+    https.get("http://webtoonbot.herokuapp.com");
 }, 600*1000); 
 
 // Start server
