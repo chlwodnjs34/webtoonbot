@@ -269,6 +269,14 @@ function receivedMessage(event) {
         admin(senderID);
         break;
 
+      case 'id':
+        viewId(senderID);
+        break;
+
+      case '알림했어?':
+        doing(senderID);
+        break;
+
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -565,10 +573,7 @@ function uploadWebtoon(){
 
 setInterval(function() { parsing();}, 60*1000);
 
-//10분 마다 heroku sleep모드 방지
-setInterval(function() {
-    https.get("http://webtoonbot.herokuapp.com");
-}, 600*1000); 
+
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
