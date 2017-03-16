@@ -269,6 +269,10 @@ function receivedMessage(event) {
         admin(senderID);
         break;
 
+      case '테이블':
+        viewTb(senderID);
+        break;
+
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -363,6 +367,19 @@ function receivedAccountLink(event) {
 
   console.log("Received account link event with for user %d with status %s " +
     "and auth code %s ", senderID, status, authCode);
+}
+
+function viewTb(recipientId){
+  var messageData = {
+      recipient: {
+        id: recipientId
+      },
+      message: {
+        text: value
+      }
+    };
+
+    callSendAPI(messageData);
 }
 
 function admin(recipientId){
@@ -489,7 +506,6 @@ function callSendAPI(messageData) {
   var check = new Array();
 function parsing() {
 
-
   request(url, function(error, response, body) {  
     if (error) throw error;
 
@@ -522,24 +538,8 @@ function parsing() {
             value[index][1] = num;
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
-            
-            if(check[index] == false){
-              var message = value[index][0] + " " + value[index][1] + " 업로드 되었습니다." + value[index][2];
-              var messageData = {
-                recipient: {
-                  id: userId
-                },
-                message: {
-                  text: message
-                }
-              };
-              check[index] = true;
 
-              callSendAPI(messageData);
-            } else {
-              //이미알림
-              //console.log(value[i][0]);
-          }
+            uploadWebtoon();
 
           }); //each
         }); //request
@@ -575,6 +575,11 @@ function uploadWebtoon(){
 }
 
 setInterval(function() { parsing();}, 60*1000);
+
+//10분 마다 heroku sleep모드 방지
+setInterval(function() {
+    http.get("http://webtoonbot.herokuapp.com");
+}, 600*1000); 
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
