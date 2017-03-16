@@ -539,7 +539,7 @@ function parsing() {
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
 
-            
+            uploadWebtoon();
 
           }); //each
         }); //request
@@ -564,7 +564,7 @@ function uploadWebtoon(){
           text: message
         }
       };
-
+      check[index] = true;
       callSendAPI(messageData);
     } else {
       //이미알림
