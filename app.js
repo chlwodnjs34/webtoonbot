@@ -269,10 +269,6 @@ function receivedMessage(event) {
         admin(senderID);
         break;
 
-      case '테이블':
-        viewTb(senderID);
-        break;
-
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -367,19 +363,6 @@ function receivedAccountLink(event) {
 
   console.log("Received account link event with for user %d with status %s " +
     "and auth code %s ", senderID, status, authCode);
-}
-
-function viewTb(recipientId){
-  var messageData = {
-      recipient: {
-        id: recipientId
-      },
-      message: {
-        text: value
-      }
-    };
-
-    callSendAPI(messageData);
 }
 
 function admin(recipientId){
@@ -538,9 +521,21 @@ function parsing() {
             value[index][1] = num;
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
+            
+           
+              var message = value[index][0] + " " + value[index][1] + " 업로드 되었습니다." + value[index][2];
+              var messageData = {
+                recipient: {
+                  id: userId
+                },
+                message: {
+                  text: message
+                }
+              };
+              check[index] = true;
 
-            uploadWebtoon();
-
+              callSendAPI(messageData);
+            
           }); //each
         }); //request
 
@@ -554,7 +549,7 @@ function parsing() {
 
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
-    if(check[i] === false && userId.length >= 1){
+    if(check[i] == false){
       var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
       var messageData = {
         recipient: {
@@ -564,7 +559,8 @@ function uploadWebtoon(){
           text: message
         }
       };
-      check[index] = true;
+      check[i] = true;
+
       callSendAPI(messageData);
     } else {
       //이미알림
@@ -573,10 +569,7 @@ function uploadWebtoon(){
   }
 }
 
-setInterval(function() { 
-  parsing();
-  
-}, 60*1000);
+setInterval(function() { parsing();}, 60*1000);
 
 //10분 마다 heroku sleep모드 방지
 setInterval(function() {
