@@ -537,7 +537,7 @@ function parsing() {
             
             value[index][1] = num;
             value[index][2] = "http://comic.naver.com" + link;
-            check[index] = false;
+            check[index] = true;
 
             uploadWebtoon();
 
@@ -554,7 +554,7 @@ function parsing() {
 
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
-    if(check[i] == false){
+    if(check[i] === true){
       var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
       var messageData = {
         recipient: {
