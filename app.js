@@ -575,7 +575,7 @@ function uploadWebtoon(){
 
 setInterval(function() { 
   parsing();
-  uploadWebtoon();
+  
 }, 60*1000);
 
 //10분 마다 heroku sleep모드 방지
