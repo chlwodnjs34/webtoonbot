@@ -519,11 +519,9 @@ function parsing() {
           postWeek.each(function(){
             var num = $(this).find("a").text();
 
-            if($("tr td").eq(0).find("a").attr("href")=="#"){//첫 td가 광고 경우
+            if($("tr td").eq(0).find("a").attr("href")=="#"){//첫 td가 미리보기일 경우
               var link = $("tr td").eq(1).find("a").attr("href");
-            } else if ($("tr td").eq(1).find("a").attr("href")=="#"){//두번째 td가 미리보기일 경우
-              var link = $("tr td").eq(2).find("a").attr("href");
-            } else{
+            } else {
               var link = $("tr td").eq(0).find("a").attr("href");
             }
             
