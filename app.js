@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-var userId;
+var userId = "";
 var overlap = new Array();
 /*
  * Be sure to setup your config values before running this code. You can 
