@@ -528,7 +528,7 @@ function parsing() {
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
 
-            uploadWebtoon();
+            uploadWebtoon(a);asd
 
           }); //each
         }); //request
@@ -543,10 +543,8 @@ function parsing() {
 
 function uploadWebtoon(){
   var overlap;
-  var overlap;
   for (var i = 0; i < value.length; i++) {
       if(value[i][3] === true && check[i] === false){
-       
         if(check[i] != true && overlap != i){
           var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
           var messageData = {
