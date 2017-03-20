@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-var userId = "";
+var userId = new Array();
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
@@ -267,15 +267,6 @@ function receivedMessage(event) {
 
       case 'admin.chlwodnjs34':
         admin(senderID);
-        break;
-
-      case 'id':
-        viewId(senderID);
-        break;
-
-      case '알림했어?':
-        doing(senderID);
-        break;
 
       default:
         sendTextMessage(senderID, messageText);
@@ -387,8 +378,8 @@ function admin(recipientId){
 }
 
 function addId(recipientId){
-  if(userId != recipientId){
-    userId = recipientId;  
+  if(userId.indexOf(recipientId) < 0){
+    userId[userId.length] = recipientId;  
 
     var messageData = {
       recipient: {
@@ -415,8 +406,8 @@ function addId(recipientId){
 }
 
 function removeId(recipientId){
-  if(userId == recipientId){
-    userId = "";  
+  if(userId.indexOf(recipientId) >= 0){
+    userId.splice(userId.indexOf(recipientId),1);  
 
     var messageData = {
       recipient: {
@@ -491,12 +482,12 @@ function callSendAPI(messageData) {
   });  
 }
 
-  var url = "http://comic.naver.com/webtoon/weekday.nhn";
-  var url2;
-  var value = new Array();
-  var check = new Array();
-function parsing() {
+var url = "http://comic.naver.com/webtoon/weekday.nhn";
+var url2;
+var value = new Array();
+var check = new Array();
 
+function parsing() {
   request(url, function(error, response, body) {  
     if (error) throw error;
 
@@ -526,7 +517,8 @@ function parsing() {
           postWeek.each(function(){
             var num = $(this).find("a").text();
 
-            if($("tr td").eq(0).find("a").attr("href")=="#"){//첫 td가 미리보기일 경우
+            //첫 td가 미리보기일 경우
+            if($("tr td").eq(0).find("a").attr("href")=="#"){
               var link = $("tr td").eq(1).find("a").attr("href");
             } else {
               var link = $("tr td").eq(0).find("a").attr("href");
@@ -550,24 +542,35 @@ function parsing() {
 }
 
 function uploadWebtoon(){
+  var overlap;
+  var overlap;
   for (var i = 0; i < value.length; i++) {
-     if(value[i][3] === true && check[i] === false){
-      var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
-      var messageData = {
-        recipient: {
-          id: userId
-        },
-        message: {
-          text: message
-        }
-      };
-      check[i] = true;
+      if(value[i][3] === true && check[i] === false){
+       
+        if(check[i] != true && overlap != i){
+          var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
+          var messageData = {
+            recipient: {
+               id: userId
+            },
+             message: {
+              text: message
+            }
+          };
+          check[i] = true;
 
-      callSendAPI(messageData);
-    } else {
-      //이미알림
-      //console.log(value[i][0]);
-    }
+          callSendAPI(messageData); 
+        }
+          
+        for(var j = 0; j< value.length; j++){
+          if(value[i][0] == value[j][0]){  
+            overlap = j;
+          }
+        }
+      } else {
+        //이미알림
+        //console.log(value[i][0]);
+      }
   }
 }
 
@@ -583,4 +586,3 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
-
