@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-var userId = "";
+var userId;
 var overlap = new Array();
 /*
  * Be sure to setup your config values before running this code. You can 
@@ -268,7 +268,6 @@ function receivedMessage(event) {
 
       case 'admin.chlwodnjs34':
         admin(senderID);
-        break;
 
       default:
         sendTextMessage(senderID, messageText);
@@ -436,6 +435,7 @@ function removeId(recipientId){
 }
 
 
+
 /*
  * Send a text message using the Send API.
  *
@@ -484,12 +484,12 @@ function callSendAPI(messageData) {
   });  
 }
 
-  var url = "http://comic.naver.com/webtoon/weekday.nhn";
-  var url2;
-  var value = new Array();
-  var check = new Array();
-function parsing() {
+var url = "http://comic.naver.com/webtoon/weekday.nhn";
+var url2;
+var value = new Array();
+var check = new Array();
 
+function parsing() {
   request(url, function(error, response, body) {  
     if (error) throw error;
 
@@ -519,7 +519,8 @@ function parsing() {
           postWeek.each(function(){
             var num = $(this).find("a").text();
 
-            if($("tr td").eq(0).find("a").attr("href")=="#"){//첫 td가 미리보기일 경우
+            //첫 td가 미리보기일 경우
+            if($("tr td").eq(0).find("a").attr("href")=="#"){
               var link = $("tr td").eq(1).find("a").attr("href");
             } else {
               var link = $("tr td").eq(0).find("a").attr("href");
@@ -528,7 +529,7 @@ function parsing() {
             value[index][1] = num;
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
-
+            asd=asd;
             uploadWebtoon();
 
           }); //each
@@ -539,11 +540,11 @@ function parsing() {
       }
 
     }); //each
-  }); //verifyRequestSignature
+  }); //request
 }
 
 function uploadWebtoon(){
-  var overlap;
+
   for (var i = 0; i < value.length; i++) {
       if(value[i][3] === true && check[i] === false){
         if(check[i] != true && overlap.indexOf(i) == -1 ){
@@ -557,16 +558,16 @@ function uploadWebtoon(){
             }
           };
           check[i] = true;
-          
 
           callSendAPI(messageData); 
         }
-          
+        
         for(var j = 0; j< value.length; j++){
           if(value[i][0] == value[j][0]){  
             overlap[overlap.length] = j;
           }
         }
+        check[i] = true;
       } else {
         //이미알림
         //console.log(value[i][0]);
@@ -576,10 +577,7 @@ function uploadWebtoon(){
 
 setInterval(function() { parsing();}, 60*1000);
 
-//10분 마다 heroku sleep모드 방지
-setInterval(function() {
-    http.get("http://webtoonbot.herokuapp.com");
-}, 600*1000); 
+require('heroku-self-ping')("http://webtoonbot.herokuapp.com/");
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
@@ -588,4 +586,4 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
-module.exports = app
+module.exports = app;
