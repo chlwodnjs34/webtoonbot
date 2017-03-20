@@ -26,6 +26,7 @@ app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
 var userId = "";
+var overlap = new Array();
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
@@ -538,14 +539,14 @@ function parsing() {
       }
 
     }); //each
-  }); //request
+  }); //verifyRequestSignature
 }
 
 function uploadWebtoon(){
   var overlap;
   for (var i = 0; i < value.length; i++) {
       if(value[i][3] === true && check[i] === false){
-        if(check[i] != true && overlap != i){
+        if(check[i] != true && overlap.indexOf(i) == -1 ){
           var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
           var messageData = {
             recipient: {
@@ -562,7 +563,7 @@ function uploadWebtoon(){
           
         for(var j = 0; j< value.length; j++){
           if(value[i][0] == value[j][0]){  
-            overlap = j;
+            overlap[overlap.length] = j;
           }
         }
       } else {
