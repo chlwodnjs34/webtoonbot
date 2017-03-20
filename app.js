@@ -557,6 +557,7 @@ function uploadWebtoon(){
             }
           };
           check[i] = true;
+          
 
           callSendAPI(messageData); 
         }
