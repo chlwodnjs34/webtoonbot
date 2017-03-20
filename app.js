@@ -543,32 +543,23 @@ function parsing() {
 
 function uploadWebtoon(){
   for (var i = 0; i < value.length; i++) {
-      if(value[i][3] === true && check[i] === false){
-        if(check[i] != true && overlap.indexOf(i) == -1 ){
-        var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
-          var messageData = {
-            recipient: {
-               id: userId
-            },
-             message: {
-              text: message
-            }
-          };
-          check[i] = true;
+     if(value[i][3] === true && check[i] === false){
+      var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
+      var messageData = {
+        recipient: {
+          id: userId
+        },
+        message: {
+          text: message
+        }
+      };
+      check[i] = true;
 
-          callSendAPI(messageData); 
-        }
-        
-        for(var j = 0; j< value.length; j++){
-          if(value[i][0] == value[j][0]){  
-            overlap[overlap.length] = j;
-          }
-        }
-        check[i] = true;
-      } else {
-        //이미알림
-        //console.log(value[i][0]);
-      }
+      callSendAPI(messageData);
+    } else {
+      //이미알림
+      //console.log(value[i][0]);
+    }
   }
 }
 
