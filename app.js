@@ -527,7 +527,7 @@ function parsing() {
             value[index][1] = num;
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
-            asd=asd;
+            
             uploadWebtoon();
 
           }); //each
