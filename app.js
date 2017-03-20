@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-var userId;
+var userId = "";
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
@@ -267,6 +267,7 @@ function receivedMessage(event) {
 
       case 'admin.chlwodnjs34':
         admin(senderID);
+        break;
 
       default:
         sendTextMessage(senderID, messageText);
@@ -378,9 +379,8 @@ function admin(recipientId){
 }
 
 function addId(recipientId){
-/*  if(userId.indexOf(recipientId) < 0){
-    userId[userId.length] = recipientId;  */
-    if(userId != recipientId){
+  if(userId != recipientId){
+    userId = recipientId;  
 
     var messageData = {
       recipient: {
@@ -407,9 +407,9 @@ function addId(recipientId){
 }
 
 function removeId(recipientId){
-/*  if(userId.indexOf(recipientId) >= 0){
-    userId.splice(userId.indexOf(recipientId),1); */ 
-    if(userId == recipientId){
+  if(userId == recipientId){
+    userId = "";  
+
     var messageData = {
       recipient: {
         id: recipientId
@@ -483,12 +483,12 @@ function callSendAPI(messageData) {
   });  
 }
 
-var url = "http://comic.naver.com/webtoon/weekday.nhn";
-var url2;
-var value = new Array();
-var check = new Array();
-
+  var url = "http://comic.naver.com/webtoon/weekday.nhn";
+  var url2;
+  var value = new Array();
+  var check = new Array();
 function parsing() {
+
   request(url, function(error, response, body) {  
     if (error) throw error;
 
@@ -518,8 +518,7 @@ function parsing() {
           postWeek.each(function(){
             var num = $(this).find("a").text();
 
-            //첫 td가 미리보기일 경우
-            if($("tr td").eq(0).find("a").attr("href")=="#"){
+            if($("tr td").eq(0).find("a").attr("href")=="#"){//첫 td가 미리보기일 경우
               var link = $("tr td").eq(1).find("a").attr("href");
             } else {
               var link = $("tr td").eq(0).find("a").attr("href");
@@ -528,7 +527,7 @@ function parsing() {
             value[index][1] = num;
             value[index][2] = "http://comic.naver.com" + link;
             check[index] = false;
-            
+
             uploadWebtoon();
 
           }); //each
@@ -543,34 +542,33 @@ function parsing() {
 }
 
 function uploadWebtoon(){
-  var overlap;
   for (var i = 0; i < value.length; i++) {
-      if(value[i][3] === true && check[i] === false){
+     if(value[i][3] === true && check[i] === false){
+      var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
+      var messageData = {
+        recipient: {
+          id: userId
+        },
+        message: {
+          text: message
+        }
+      };
+      check[i] = true;
 
-          var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
-          var messageData = {
-            recipient: {
-               id: userId
-            },
-             message: {
-              text: message
-            }
-          };
-          check[i] = true;
-
-          callSendAPI(messageData); 
-          
-      
-      } else {
-        //이미알림
-        //console.log(value[i][0]);
-      }
+      callSendAPI(messageData);
+    } else {
+      //이미알림
+      //console.log(value[i][0]);
+    }
   }
 }
 
 setInterval(function() { parsing();}, 60*1000);
 
-require('heroku-self-ping')("http://webtoonbot.herokuapp.com/");
+//10분 마다 heroku sleep모드 방지
+setInterval(function() {
+    http.get("http://webtoonbot.herokuapp.com");
+}, 600*1000); 
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
@@ -579,4 +577,4 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
-module.exports = app;
+module.exports = app
