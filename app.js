@@ -544,7 +544,7 @@ function parsing() {
 function uploadWebtoon(){
   var overlap;
   for (var i = 0; i < value.length; i++) {
-      if(value[i][3] === true && check[i] === false && overlap != i){
+      if(value[i][3] === true && check[i] === false){
 
           var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
           var messageData = {
@@ -559,11 +559,7 @@ function uploadWebtoon(){
 
           callSendAPI(messageData); 
           
-        for(var j = 0; j< value.length; j++){
-          if(value[i][0] == value[j][0]){  
-            overlap = j;
-          }
-        }
+      
       } else {
         //이미알림
         //console.log(value[i][0]);
