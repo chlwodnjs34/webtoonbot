@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-var userId = new Array();
+var userId;
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
@@ -378,8 +378,9 @@ function admin(recipientId){
 }
 
 function addId(recipientId){
-  if(userId.indexOf(recipientId) < 0){
-    userId[userId.length] = recipientId;  
+/*  if(userId.indexOf(recipientId) < 0){
+    userId[userId.length] = recipientId;  */
+    if(userId != recipientId){
 
     var messageData = {
       recipient: {
@@ -406,9 +407,9 @@ function addId(recipientId){
 }
 
 function removeId(recipientId){
-  if(userId.indexOf(recipientId) >= 0){
-    userId.splice(userId.indexOf(recipientId),1);  
-
+/*  if(userId.indexOf(recipientId) >= 0){
+    userId.splice(userId.indexOf(recipientId),1); */ 
+    if(userId == recipientId){
     var messageData = {
       recipient: {
         id: recipientId
