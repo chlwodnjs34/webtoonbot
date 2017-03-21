@@ -405,7 +405,7 @@ function addId(recipientId){
 
 //     callSendAPI(messageData);
 //   }
-// }
+}
 
 // function removeId(recipientId){
 //   if(userId == recipientId){
