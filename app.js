@@ -270,6 +270,10 @@ function receivedMessage(event) {
         admin(senderID);
         break;
 
+      case '명령어':
+        command(senderID);
+        break;
+
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -475,7 +479,7 @@ function callSendAPI(messageData) {
         console.log("Successfully sent message with id %s to recipient %s", 
           messageId, recipientId);
       } else {
-      console.log("Successfully called Send API for recipient %s", 
+        console.log("Successfully called Send API for recipient %s", 
         recipientId);
       }
     } else {
@@ -563,33 +567,33 @@ function uploadWebtoon(){
   //   }
   // }
 
-  for (var i = 0; i < value.length; i++) {
-      if(value[i][3] === true && check[i] === false){
-        if(check[i] != true && overlap.indexOf(i) == -1 ){
-        var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
-        var messageData = {
-          recipient: {
-            id: userId
-          },
-          message: {
-            text: message
-          }
-        };
-        check[i] = true;
+for (var i = 0; i < value.length; i++) {
+  if(value[i][3] === true && check[i] === false){
+    if(check[i] != true && overlap.indexOf(i) == -1 ){
+      var message = value[i][0] + " " + value[i][1] + " 업로드 되었습니다." + value[i][2];
+      var messageData = {
+        recipient: {
+          id: userId
+        },
+        message: {
+          text: message
+        }
+      };
+      check[i] = true;
 
-        callSendAPI(messageData); 
-        }
+      callSendAPI(messageData); 
+    }
         
-        for(var j = 0; j< value.length; j++){
-          if(value[i][0] == value[j][0]){  
-            overlap[overlap.length] = j;
-          }
-        }
-        check[i] = true;
-      } else {
+    for(var j = 0; j< value.length; j++){
+      if(value[i][0] == value[j][0]){  
+        overlap[overlap.length] = j;
+      }
+    }
+      check[i] = true;
+    } else {
         //이미알림
         //console.log(value[i][0]);
-      }
+    }
   }
 }
 
