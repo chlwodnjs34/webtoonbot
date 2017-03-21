@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
-var userId = "";
+var userId = "1552094551577575";
 var overlap = new Array();
 /*
  * Be sure to setup your config values before running this code. You can 
@@ -380,8 +380,8 @@ function admin(recipientId){
 }
 
 function addId(recipientId){
-  if(userId != recipientId){
-    userId = recipientId;  
+  if(userId == recipientId){
+    // userId = recipientId;  
 
     var messageData = {
       recipient: {
@@ -393,47 +393,47 @@ function addId(recipientId){
     };
 
     callSendAPI(messageData);
-  }else{
-     var messageData = {
-      recipient: {
-        id: recipientId
-      },
-      message: {
-        text: "이미 알람 설정 했어"
-      }
-    };
+  }//else{
+//      var messageData = {
+//       recipient: {
+//         id: recipientId
+//       },
+//       message: {
+//         text: "이미 알람 설정 했어"
+//       }
+//     };
 
-    callSendAPI(messageData);
-  }
-}
+//     callSendAPI(messageData);
+//   }
+// }
 
-function removeId(recipientId){
-  if(userId == recipientId){
-    userId = "";  
+// function removeId(recipientId){
+//   if(userId == recipientId){
+//     userId = "";  
 
-    var messageData = {
-      recipient: {
-        id: recipientId
-      },
-      message: {
-        text: "알림취소"
-      }
-    };
+//     var messageData = {
+//       recipient: {
+//         id: recipientId
+//       },
+//       message: {
+//         text: "알림취소"
+//       }
+//     };
 
-    callSendAPI(messageData);
-  }else{
-     var messageData = {
-      recipient: {
-        id: recipientId
-      },
-      message: {
-        text: "알림 미등록"
-      }
-    };
+//     callSendAPI(messageData);
+//   }else{
+//      var messageData = {
+//       recipient: {
+//         id: recipientId
+//       },
+//       message: {
+//         text: "알림 미등록"
+//       }
+//     };
 
-    callSendAPI(messageData);
-  }
-}
+//     callSendAPI(messageData);
+//   }
+// }
 
 
 /*
